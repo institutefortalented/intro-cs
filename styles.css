@@ -1,0 +1,119 @@
+.title {
+    margin-top: 145px;
+    text-align: center;
+    font-size: 48px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+.subtitle {
+    margin-top: 45px;
+    text-align: center;
+    font-size: 24px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+#courses {
+    margin-top: 100px;
+    padding-left: calc(50vw - 132px);
+}
+#pythonE {
+    margin-right: 25px;
+    padding: 5px 20px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 18px;
+    text-transform: none;
+}
+#pythonM {
+    padding: 5px 20px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 18px;
+    text-transform: none;
+}
+
+#course {
+    margin-top: 130px;
+    text-align: center;
+    font-size: 36px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+#assignment {
+    margin-top: 45px;
+    text-align: center;
+    font-size: 18px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+#assignments {
+    margin-top: 100px;
+    padding-left: calc(50vw - 62px);
+    
+}
+#assignments button {
+    display: block;
+    margin-bottom: 15px;
+}
+
+#file-btn {
+    margin-top: 100px;
+    margin-left: calc(50vw - 52px);
+    padding: 0px;
+}
+#file-btn-disabled {
+    margin-top: 100px;
+    margin-left: calc(50vw - 52px);
+}
+
+#inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+#inputfile + label {
+    padding: 0px 15px;
+    font-size: 1em;
+    font-weight: 600;
+    color: black;
+    display: inline-block;
+}
+
+#inputfile:focus + label,
+#inputfile + label:hover {
+    cursor: pointer;
+}
+
+#loading {
+    width: 125px;
+    margin-top: 25px;
+    margin-left: calc(50vw - 62px);
+}
+
+#score {
+    margin-top: 75px;
+    margin-left: calc(50vw - 105px);
+    text-align: center;
+    font-size: 16px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+#score div {
+    line-height: 30px;
+    text-align: left;
+}
+
+.mdl-dialog__title {
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
+    line-height: 25px !important;
+}
+.mdl-dialog__content {
+    padding: 0px !important;
+}
