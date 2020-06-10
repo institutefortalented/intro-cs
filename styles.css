@@ -15,22 +15,33 @@
 
 #courses {
     margin-top: 100px;
-    padding-left: calc(50vw - 132px);
+    padding-left: calc(50vw - 220px);
 }
 #pythonE {
     margin-right: 25px;
     padding: 5px 20px;
-    width: fit-content;
+    width: 130px;
     height: fit-content;
     font-size: 18px;
     text-transform: none;
+    background-color: #e91e63;
 }
 #pythonM {
+    margin-right: 25px;
     padding: 5px 20px;
-    width: fit-content;
+    width: 130px;
     height: fit-content;
     font-size: 18px;
     text-transform: none;
+    box-decoration-break: #3f51b5;
+}
+#java {
+    padding: 5px 20px;
+    width: 130px;
+    height: fit-content;
+    font-size: 18px;
+    text-transform: none;
+    background-color: #03a9f4;
 }
 
 #course {

@@ -29,6 +29,11 @@ const hwButtonClass = 'mdl-button mdl-js-button mdl-button--primary';
                 <button onclick="grader('hw2')" class="${hwButtonClass}">Homework 2</button>
             `);
             break;
+        case 'java':
+            $('#course').html('Intro to CS - Java');
+            $('#assignments').html(`
+            `);
+            break;
         default:
             location.href = 'index.html';
             return;
