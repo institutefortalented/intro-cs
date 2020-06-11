@@ -4,6 +4,16 @@ const compilerErrMessage = 'Your code resulted in an error and could not be grad
 const hwButtonClass = 'mdl-button mdl-js-button mdl-button--primary';
 
 (() => {
+    console.log(`
+Hello! Curious about how this website works?
+I run a weekly Web Design Club for high schoolers -- if you're interested, let me know!
+            __
+        ___( o)>
+        \\ <_. )
+~~~~~~~~~\`---'~~~~~~~~~
+    
+~ Christina
+        `);
     var dialog = document.querySelector('dialog');
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -21,6 +31,7 @@ const hwButtonClass = 'mdl-button mdl-js-button mdl-button--primary';
         case 'pythonE':
             $('#course').html('Intro to CS - Python (E)');
             $('#assignments').html(`
+                <button onclick="grader('hw3')" class="${hwButtonClass}">Homework 3</button>
             `);
             break;
         case 'pythonM':
@@ -83,6 +94,8 @@ function unchanged(code, hw) {
                     dialog(hwErrMessage);
             }
             break;
+        case 'pythonE':
+            break;
         default:
             dialog(classErrMessage);
     }
@@ -93,6 +106,7 @@ function grade(code, hw) {
     let urlParser = new URLSearchParams(window.location.search);
     let course = urlParser.get('course');
     let fullPoints = {};
+    let cases = {};
     let results = scores => {
         $('#file-btn').hide();
         $('#file-btn-disabled').show();
@@ -108,13 +122,7 @@ function grade(code, hw) {
         case 'pythonM':
             switch (hw) {
                 case 'hw2':
-                    fullPoints = {
-                        3: 1,
-                        4: 2,
-                        5: 2,
-                        8: 1,
-                        9: 2
-                    };
+                    fullPoints = hw2_p_m_points;
                     let case1 = scores => run(code, 'minutes_to_seconds(0)', 0, scores, 9, results);
                     let case2 = scores => run(code, 'minutes_to_seconds(12)', 720, scores, 9, case1);
                     let case3 = scores => run(code, 'twenty_twenty()', 2020, scores, 8, case2);
@@ -125,67 +133,33 @@ function grade(code, hw) {
                     variable(code, 'dear_diary', 'Popscicles eaten today: 1250123590', {}, 3, case7);
                     break;
                 case 'hw3':
-                    fullPoints = {
-                        1: 3,
-                        2: 3,
-                        3: 2,
-                        4: 2,
-                        5: 3,
-                        6: 3,
-                        7: 2,
-                        8: 2,
-                        10: 2,
-                        11: 2
-                    };
-                    let cases = {
-                        1: [
-                            ['add(0, 0, 0)', 0],
-                            ['add(1, 2, 5)', 8],
-                            ['add(1, 2, -4)', -1]
-                        ],
-                        2: [
-                            ['multiply(0, 0, 0)', 0],
-                            ['multiply(1, 2, 5)', 10],
-                            ['multiply(1, 2, -4)', -8]
-                        ],
-                        3: [
-                            ['perimeter(0, 0)', 0],
-                            ['perimeter(3, 5)', 16]
-                        ],
-                        4: [
-                            ['area(0, 0)', 0],
-                            ['area(3, 5)', 15]
-                        ],
-                        5: [
-                            ['foo(0, 0)', 0],
-                            ['foo(2, 1)', 3],
-                            ['foo(3, 7)', -40]
-                        ],
-                        6: [
-                            ['bar(0, 1)', 0.0],
-                            ['bar(4, 2)', 10.0],
-                            ['bar(12, -4)', -51.0],
-                        ],
-                        7: [
-                            ['abab("Hi", "Bye")', "HiByeHiBye"],
-                            ['abab("Chris", "tina")', "ChristinaChristina"]
-                        ],
-                        8: [
-                            ['to_the_moon("Apollo")', "Apollo is going to the moon!"],
-                            ['to_the_moon("Artemis")', "Artemis is going to the moon!"]
-                        ],
-                        10: [
-                            ['makeHTML("li", "I can code!")', "<li>I can code!</li>"],
-                            ['makeHTML("div", "Passed this case")', "<div>Passed this case</div>"]
-                        ],
-                        11: [
-                            ['giveChange(9, 10)', 1],
-                            ['giveChange(4.5, 20)', 15.5]
-                        ]
-                    };
+                    fullPoints = {};
+                    cases = hw3_p_m_cases;
                     let callback = results;
                     for (const num in cases) {
+                        fullPoints[num] = 0;
                         for (const c of cases[num]) {
+                            fullPoints[num]++;
+                            let prev = callback;
+                            callback = scores => run(code, c[0], c[1], scores, num, prev);
+                        }
+                    }
+                    callback({});
+                    break;
+                default:
+                    dialog(hwErrMessage);
+            }
+            break;
+        case 'pythonE':
+            switch (hw) {
+                case 'hw3':
+                    fullPoints = {};
+                    cases = hw3_p_e_cases;
+                    let callback = results;
+                    for (const num in cases) {
+                        fullPoints[num] = 0;
+                        for (const c of cases[num]) {
+                            fullPoints[num]++;
                             let prev = callback;
                             callback = scores => run(code, c[0], c[1], scores, num, prev);
                         }
