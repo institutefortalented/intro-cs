@@ -55,6 +55,9 @@
     margin-top: 50px;
     margin-left: calc(50vw - 400px);
     margin-bottom: 100px;
+    width: 800px;
+    height: 500px;
+    border-width:0;
 }
 
 #course {
