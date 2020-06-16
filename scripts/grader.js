@@ -38,6 +38,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw4')" class="${hwButtonClass}">Homework 4</button>
                 <button onclick="grader('hw3')" class="${hwButtonClass}">Homework 3</button>
                 <button onclick="grader('hw2')" class="${hwButtonClass}">Homework 2</button>
             `);
@@ -90,6 +91,7 @@ function unchanged(code, hw) {
                     if (popsicles < 3 || nugs < 3 || bank < 3) return 1;
                     break;
                 case 'hw3':
+                case 'hw4':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -134,15 +136,20 @@ function grade(code, hw) {
                     variable(code, 'dear_diary', 'Popscicles eaten today: 1250123590', {}, 3, case7);
                     break;
                 case 'hw3':
+                case 'hw4':
                     fullPoints = {};
-                    cases = hw3_p_m_cases;
+                    if (hw == 'hw3') cases = hw3_p_m_cases;
+                    else if (hw == 'hw4') cases = hw4_p_m_cases;
+                    else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
                         fullPoints[num] = 0;
                         for (const c of cases[num]) {
                             fullPoints[num]++;
                             let prev = callback;
-                            callback = scores => run(code, c[0], c[1], scores, num, prev);
+                            callback = scores => {
+                                run(code, c[0], c[1], scores, num, prev);
+                            }
                         }
                     }
                     callback({});
