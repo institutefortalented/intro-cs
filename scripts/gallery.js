@@ -6,22 +6,17 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         ___( o)>
         \\ <_. )
 ~~~~~~~~~\`---'~~~~~~~~~
-
+    
 ~ Christina
-    `);
-})();
-
-function goToCourse(course) {
+        `);
+    let urlParser = new URLSearchParams(window.location.search);
+    let course = urlParser.get('course');
     switch (course) {
-        case 'pythonE':
-        case 'pythonM':
-            location.href = `grader.html?course=${course}`;
-            break;
         case 'java':
-            location.href = `gallery.html?course=${course}`;
+            $('#course').html('Intro to CS - Java');
             break;
         default:
             location.href = 'index.html';
             return;
     }
-}
+})();
