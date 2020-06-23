@@ -31,6 +31,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonE':
             $('#course').html('Intro to CS - Python (E)');
             $('#assignments').html(`
+                <button onclick="grader('hw6')" class="${hwButtonClass}">Homework 6</button>
                 <button onclick="grader('hw5')" class="${hwButtonClass}">Homework 5</button>
                 <button onclick="grader('hw4')" class="${hwButtonClass}">Homework 4</button>
                 <button onclick="grader('hw3')" class="${hwButtonClass}">Homework 3</button>
@@ -168,6 +169,7 @@ function grade(code, hw) {
             if (hw == 'hw3') cases = hw3_p_e_cases;
             else if (hw == 'hw4') cases = hw4_p_e_cases;
             else if (hw == 'hw5') cases = hw5_p_e_cases;
+            else if (hw == 'hw6') cases = hw6_p_e_cases;
             else dialog(hwErrMessage);
             let callback = results;
             for (const num in cases) {
