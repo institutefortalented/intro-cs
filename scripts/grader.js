@@ -1,6 +1,7 @@
 const classErrMessage = 'There is no autograder for this class';
 const hwErrMessage = 'There is no autograder for this homework';
 const compilerErrMessage = 'Your code resulted in an error and could not be graded';
+const timeErrMessage = 'Your code took too long to run. Please check for infinite loops';
 const hwButtonClass = 'mdl-button mdl-js-button mdl-button--primary';
 
 (() => {
@@ -41,6 +42,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
                 <button onclick="grader('hw6')" class="${hwButtonClass}">Homework 6</button>
                 <button onclick="grader('hw5')" class="${hwButtonClass}">Homework 5</button>
                 <button onclick="grader('hw4')" class="${hwButtonClass}">Homework 4</button>
@@ -99,6 +101,7 @@ function unchanged(code, hw) {
                 case 'hw4':
                 case 'hw5':
                 case 'hw6':
+                case 'hw7':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -146,11 +149,13 @@ function grade(code, hw) {
                 case 'hw4':
                 case 'hw5':
                 case 'hw6':
+                case 'hw7':
                     fullPoints = {};
                     if (hw == 'hw3') cases = hw3_p_m_cases;
                     else if (hw == 'hw4') cases = hw4_p_m_cases;
                     else if (hw == 'hw5') cases = hw5_p_m_cases;
                     else if (hw == 'hw6') cases = hw6_p_m_cases;
+                    else if (hw == 'hw7') cases = hw7_p_m_cases;
                     else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
