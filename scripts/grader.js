@@ -64,6 +64,10 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
 function grader(hw) {
     $('#assignments').hide();
     $('#file-btn').show();
+    if (new URLSearchParams(window.location.search).get('course') == 'pythonM' && hw == 'hw7') {
+        $('#instructions').html(`Before uploading, make sure to double check that your code will not result in any infinite loops.
+                                 If your code seems to be taking a long time to run, close this tab, fix your code, and submit again.`);
+    }
     $('#assignment').html(`Homework ${hw.slice(2)}`);
     document.getElementById('inputfile')
     .addEventListener('change', function () {
