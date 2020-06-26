@@ -85,13 +85,23 @@
     margin-bottom: 15px;
 }
 
+#instructions {
+    width: 40vw;
+    margin: auto;
+    margin-top: 75px;
+    font-family: "Roboto";
+    text-align: center;
+    font-size: 16px;
+    color: #555555;
+    font-weight: 300;
+}
 #file-btn {
-    margin-top: 100px;
+    margin-top: 25px;
     margin-left: calc(50vw - 52px);
     padding: 0px;
 }
 #file-btn-disabled {
-    margin-top: 100px;
+    margin-top: 25px;
     margin-left: calc(50vw - 52px);
 }
 
