@@ -1,0 +1,33 @@
+#gallery {
+    width: 80%; 
+    margin-left: 10%; 
+    margin-right: 10%;
+    margin-top: 50px;
+}
+
+#gallery td {
+    padding: 50px 30px 75px 30px;
+    text-align: center;
+}
+
+.entry {
+    width: 24vw;
+    height: 300px;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+.entry img {
+    max-width: 100%;
+    height: auto;
+}
+
+.entry-title {
+    margin-top: 25px;
+    font-size: 24px;
+}
+.entry-name {
+    margin-top: 15px;
+}
+.entry-caption {
+    margin-top: 15px;
+}
