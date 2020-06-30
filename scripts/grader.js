@@ -42,6 +42,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw8')" class="${hwButtonClass}">Homework 8</button>
                 <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
                 <button onclick="grader('hw6')" class="${hwButtonClass}">Homework 6</button>
                 <button onclick="grader('hw5')" class="${hwButtonClass}">Homework 5</button>
@@ -106,6 +107,7 @@ function unchanged(code, hw) {
                 case 'hw5':
                 case 'hw6':
                 case 'hw7':
+                case 'hw8':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -143,23 +145,25 @@ function grade(code, hw) {
                     let case1 = scores => run(code, 'minutes_to_seconds(0)', 0, scores, 9, results);
                     let case2 = scores => run(code, 'minutes_to_seconds(12)', 720, scores, 9, case1);
                     let case3 = scores => run(code, 'twenty_twenty()', 2020, scores, 8, case2);
-                    let case4 = scores => variable(code, 'watch_tv', 308538.4213121, scores, 5, case3);
-                    let case5 = scores => variable(code, 'work_hard', 1525862.8715121, scores, 5, case4);
-                    let case6 = scores => variable(code, 'chicken_eaten', -10029587, scores, 4, case5);
-                    let case7 = scores => variable(code, 'eat_more_chicken', 105964623, scores, 4, case6);
-                    variable(code, 'dear_diary', 'Popscicles eaten today: 1250123590', {}, 3, case7);
+                    let case4 = scores => variable(code, 'watch_tv', '', 308538.4213121, scores, 5, case3);
+                    let case5 = scores => variable(code, 'work_hard', '', 1525862.8715121, scores, 5, case4);
+                    let case6 = scores => variable(code, 'chicken_eaten', '', -10029587, scores, 4, case5);
+                    let case7 = scores => variable(code, 'eat_more_chicken', '', 105964623, scores, 4, case6);
+                    variable(code, 'dear_diary', '', 'Popscicles eaten today: 1250123590', {}, 3, case7);
                     break;
                 case 'hw3':
                 case 'hw4':
                 case 'hw5':
                 case 'hw6':
                 case 'hw7':
+                case 'hw8':
                     fullPoints = {};
                     if (hw == 'hw3') cases = hw3_p_m_cases;
                     else if (hw == 'hw4') cases = hw4_p_m_cases;
                     else if (hw == 'hw5') cases = hw5_p_m_cases;
                     else if (hw == 'hw6') cases = hw6_p_m_cases;
                     else if (hw == 'hw7') cases = hw7_p_m_cases;
+                    else if (hw == 'hw8') cases = hw8_p_m_cases;
                     else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
@@ -168,7 +172,11 @@ function grade(code, hw) {
                             fullPoints[num]++;
                             let prev = callback;
                             callback = scores => {
-                                run(code, c[0], c[1], scores, num, prev);
+                                if (c.length == 2) {
+                                    run(code, c[0], c[1], scores, num, prev);
+                                } else if (c.length == 3) {
+                                    variable(code, 'var', c[1], c[2], scores, num, prev);
+                                }                               
                             }
                         }
                     }
@@ -221,16 +229,20 @@ function run(code, call, expected, scores, num, callback) {
     });
 }
 
-function variable(code, variable, expected, scores, num, callback) {
+function variable(code, variable, call, expected, scores, num, callback) {
     pypyjs.exec(
-        code
+        code + call
     ).then(function () {
         return pypyjs.get(variable);
     }).then(function (result) {
+        let correct = result == expected;
+        if (Array.isArray(expected) && Array.isArray(result)) {
+            correct = arraysEqual(result, expected);
+        }
         if (scores[num]) {
-            scores[num] += (result == expected ? 1 : 0);
+            scores[num] += (correct ? 1 : 0);
         } else {
-            scores[num] = (result == expected ? 1 : 0);
+            scores[num] = (correct ? 1 : 0);
         }
         callback(scores);
     }).catch(err => {
@@ -238,6 +250,16 @@ function variable(code, variable, expected, scores, num, callback) {
         console.log(err);
         dialog(compilerErrMessage);
     });
+}
+
+function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;  
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
 }
 
 function check(form) {
