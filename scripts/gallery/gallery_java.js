@@ -1,5 +1,10 @@
 let javaGallery = [
     {
+        img: 'gallery/java/10.png',
+        title: "Java",
+        caption: ''
+    },
+    {
         img: 'gallery/java/9.jpg',
         title: "Weird Sun Thing",
         name: 'Ella',
