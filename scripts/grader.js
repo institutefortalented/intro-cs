@@ -32,6 +32,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonE':
             $('#course').html('Intro to CS - Python (E)');
             $('#assignments').html(`
+                <button onclick="grader('hw9')" class="${hwButtonClass}">Homework 9</button>
                 <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
                 <button onclick="grader('hw6')" class="${hwButtonClass}">Homework 6</button>
                 <button onclick="grader('hw5')" class="${hwButtonClass}">Homework 5</button>
@@ -193,6 +194,7 @@ function grade(code, hw) {
             else if (hw == 'hw5') cases = hw5_p_e_cases;
             else if (hw == 'hw6') cases = hw6_p_e_cases;
             else if (hw == 'hw7') cases = hw7_p_e_cases;
+            else if (hw == 'hw9') cases = hw9_p_e_cases;
             else dialog(hwErrMessage);
             let callback = results;
             for (const num in cases) {
@@ -200,7 +202,13 @@ function grade(code, hw) {
                 for (const c of cases[num]) {
                     fullPoints[num]++;
                     let prev = callback;
-                    callback = scores => run(code, c[0], c[1], scores, num, prev);
+                    callback = scores => {
+                        if (c.length == 2) {
+                            run(code, c[0], c[1], scores, num, prev);
+                        } else if (c.length == 3) {
+                            variable(code, 'var', c[1], c[2], scores, num, prev);
+                        }                               
+                    }
                 }
             }
             callback({});
@@ -216,10 +224,14 @@ function run(code, call, expected, scores, num, callback) {
     ).then(function () {
         return pypyjs.get('result');
     }).then(function (result) {
+        let correct = result == expected;
+        if (Array.isArray(expected) && Array.isArray(result)) {
+            correct = arraysEqual(result, expected);
+        }
         if (scores[num]) {
-            scores[num] += (result == expected ? 1 : 0);
+            scores[num] += (correct ? 1 : 0);
         } else {
-            scores[num] = (result == expected ? 1 : 0);
+            scores[num] = (correct ? 1 : 0);
         }
         callback(scores);
     }).catch(err => {
