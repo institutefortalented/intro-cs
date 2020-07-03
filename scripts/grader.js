@@ -43,6 +43,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw9')" class="${hwButtonClass}">Homework 9</button>
                 <button onclick="grader('hw8')" class="${hwButtonClass}">Homework 8</button>
                 <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
                 <button onclick="grader('hw6')" class="${hwButtonClass}">Homework 6</button>
@@ -109,6 +110,7 @@ function unchanged(code, hw) {
                 case 'hw6':
                 case 'hw7':
                 case 'hw8':
+                case 'hw9':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -158,6 +160,7 @@ function grade(code, hw) {
                 case 'hw6':
                 case 'hw7':
                 case 'hw8':
+                case 'hw9':
                     fullPoints = {};
                     if (hw == 'hw3') cases = hw3_p_m_cases;
                     else if (hw == 'hw4') cases = hw4_p_m_cases;
@@ -165,6 +168,7 @@ function grade(code, hw) {
                     else if (hw == 'hw6') cases = hw6_p_m_cases;
                     else if (hw == 'hw7') cases = hw7_p_m_cases;
                     else if (hw == 'hw8') cases = hw8_p_m_cases;
+                    else if (hw == 'hw9') cases = hw9_p_m_cases;
                     else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
@@ -267,9 +271,9 @@ function variable(code, variable, call, expected, scores, num, callback) {
 function arraysEqual(a, b) {
     if (a === b) return true;
     if (a == null || b == null) return false;
-    if (a.length !== b.length) return false;  
+    if (a.length !== b.length) return false;
     for (var i = 0; i < a.length; ++i) {
-        if (a[i] !== b[i]) return false;
+        if (!arraysEqual(a[i], b[i])) return false;
     }
     return true;
 }
