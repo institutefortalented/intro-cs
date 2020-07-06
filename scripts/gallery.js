@@ -13,12 +13,16 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
     let course = urlParser.get('course');
     switch (course) {
         case 'java':
+        case 'pythonE':
+            let data = [];
+            if (course == 'java') data = javaGallery;
+            else if (course == 'pythonE') data = pythonEGallery;
             $('#course').html('Intro to CS - Java');
             let gallery = ``;
-            for (let i = 0; i < javaGallery.length; i+=3) {
+            for (let i = 0; i < data.length; i+=3) {
                 gallery += `<tr>`;
-                for (let j = 0; j < 3 && i+j < javaGallery.length; j++) {
-                    let entry = javaGallery[i+j];
+                for (let j = 0; j < 3 && i+j < data.length; j++) {
+                    let entry = data[i+j];
                     gallery += `<td class="entry">
                         <img src="${entry.img}"/>
                         <div class="entry-title">${entry.title}</div>

@@ -3,6 +3,7 @@ const hwErrMessage = 'There is no autograder for this homework';
 const compilerErrMessage = 'Your code resulted in an error and could not be graded';
 const timeErrMessage = 'Your code took too long to run. Please check for infinite loops';
 const hwButtonClass = 'mdl-button mdl-js-button mdl-button--primary';
+const glryButtonClass = 'mdl-button mdl-js-button mdl-button--accent';
 
 (() => {
     console.log(`
@@ -32,6 +33,8 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonE':
             $('#course').html('Intro to CS - Python (E)');
             $('#assignments').html(`
+                <button onclick="gallery('pythonE')" class="${glryButtonClass}">Art Gallery</button>
+                <div style="height: 25px;"></div>
                 <button onclick="grader('hw10')" class="${hwButtonClass}">Homework 10</button>
                 <button onclick="grader('hw9')" class="${hwButtonClass}">Homework 9</button>
                 <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
@@ -64,6 +67,10 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
             return;
     }
 })();
+
+function gallery(course) {
+    location.href = `gallery.html?course=${course}`;
+}
 
 function grader(hw) {
     $('#assignments').hide();
