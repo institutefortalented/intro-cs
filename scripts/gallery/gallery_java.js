@@ -2,7 +2,8 @@ let javaGallery = [
     {
         img: 'gallery/java/10.png',
         title: "Java",
-        caption: ''
+        name: 'Natalie',
+        caption: 'That took me quite some time...'
     },
     {
         img: 'gallery/java/9.jpg',
