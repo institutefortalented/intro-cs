@@ -47,6 +47,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw10')" class="${hwButtonClass}">Homework 10</button>
                 <button onclick="grader('hw9')" class="${hwButtonClass}">Homework 9</button>
                 <button onclick="grader('hw8')" class="${hwButtonClass}">Homework 8</button>
                 <button onclick="grader('hw7')" class="${hwButtonClass}">Homework 7</button>
@@ -119,6 +120,7 @@ function unchanged(code, hw) {
                 case 'hw7':
                 case 'hw8':
                 case 'hw9':
+                case 'hw10':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -169,6 +171,7 @@ function grade(code, hw) {
                 case 'hw7':
                 case 'hw8':
                 case 'hw9':
+                case 'hw10':
                     fullPoints = {};
                     if (hw == 'hw3') cases = hw3_p_m_cases;
                     else if (hw == 'hw4') cases = hw4_p_m_cases;
@@ -177,6 +180,7 @@ function grade(code, hw) {
                     else if (hw == 'hw7') cases = hw7_p_m_cases;
                     else if (hw == 'hw8') cases = hw8_p_m_cases;
                     else if (hw == 'hw9') cases = hw9_p_m_cases;
+                    else if (hw == 'hw10') cases = hw10_m_cases;
                     else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
@@ -237,7 +241,7 @@ function run(code, call, expected, scores, num, callback) {
     ).then(function () {
         return pypyjs.get('result');
     }).then(function (result) {
-        let correct = result == expected;
+        let correct = result == expected || floatEqual(result, expected);
         if (Array.isArray(expected) && Array.isArray(result)) {
             correct = arraysEqual(result, expected);
         }
@@ -260,7 +264,7 @@ function variable(code, variable, call, expected, scores, num, callback) {
     ).then(function () {
         return pypyjs.get(variable);
     }).then(function (result) {
-        let correct = result == expected;
+        let correct = result == expected || floatEqual(result, expected);
         if (Array.isArray(expected) && Array.isArray(result)) {
             correct = arraysEqual(result, expected);
         }
@@ -279,12 +283,18 @@ function variable(code, variable, call, expected, scores, num, callback) {
 
 function arraysEqual(a, b) {
     if (a === b) return true;
+    if (floatEqual(a, b)) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
     for (var i = 0; i < a.length; ++i) {
         if (!arraysEqual(a[i], b[i])) return false;
     }
     return true;
+}
+
+function floatEqual(a, b) {
+    if (typeof a == 'number' && typeof b == 'number') return Math.abs(a - b) <= 0.0001;
+    return false;
 }
 
 function check(form) {
