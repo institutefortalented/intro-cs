@@ -1,4 +1,4 @@
-let hw12_m_cases = {
+let hw12_e_cases = {
     2: [
         [`near_ten(10)`, true],
         [`near_ten(29)`, true],
