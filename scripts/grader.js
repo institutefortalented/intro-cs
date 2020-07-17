@@ -50,6 +50,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw13')" class="${hwButtonClass}">Homework 13</button>
                 <button onclick="grader('hw12')" class="${hwButtonClass}">Homework 12</button>
                 <button onclick="grader('hw11')" class="${hwButtonClass}">Homework 11</button>
                 <button onclick="grader('hw10')" class="${hwButtonClass}">Homework 10</button>
@@ -128,6 +129,7 @@ function unchanged(code, hw) {
                 case 'hw10':
                 case 'hw11':
                 case 'hw12':
+                case 'hw13':
                     break;
                 default:
                     dialog(hwErrMessage);
@@ -181,6 +183,7 @@ function grade(code, hw) {
                 case 'hw10':
                 case 'hw11':
                 case 'hw12':
+                case 'hw13':
                     fullPoints = {};
                     if (hw == 'hw3') cases = hw3_p_m_cases;
                     else if (hw == 'hw4') cases = hw4_p_m_cases;
@@ -192,6 +195,7 @@ function grade(code, hw) {
                     else if (hw == 'hw10') cases = hw10_m_cases;
                     else if (hw == 'hw11') cases = hw11_m_cases;
                     else if (hw == 'hw12') cases = hw12_m_cases;
+                    else if (hw == 'hw13') cases = hw13_m_cases;
                     else dialog(hwErrMessage);
                     let callback = results;
                     for (const num in cases) {
