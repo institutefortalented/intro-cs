@@ -51,6 +51,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw14')" class="${hwButtonClass}">Homework 14</button>
                 <button onclick="grader('hw13')" class="${hwButtonClass}">Homework 13</button>
                 <button onclick="grader('hw12')" class="${hwButtonClass}">Homework 12</button>
                 <button onclick="grader('hw11')" class="${hwButtonClass}">Homework 11</button>
@@ -107,33 +108,17 @@ function unchanged(code, hw) {
     let course = urlParser.get('course');
     switch (course) {
         case 'pythonM':
-            switch (hw) {
-                case 'hw2':
-                    if (code.indexOf('dear_diary = "Popscicles eaten today: "') == -1) return 1;
-                    let popsicles = 0;
-                    let nugs = 0;
-                    let bank = 0;
-                    code.split(/\s+/).forEach(item => {
-                        popsicles += (item.indexOf('popsicles') != -1) ? 1 : 0;
-                        nugs += (item.indexOf('chicken_nuggets') != -1) ? 1 : 0;
-                        bank += (item.indexOf('bank_account') != -1) ? 1 : 0;
-                    });
-                    if (popsicles < 3 || nugs < 3 || bank < 3) return 1;
-                    break;
-                case 'hw3':
-                case 'hw4':
-                case 'hw5':
-                case 'hw6':
-                case 'hw7':
-                case 'hw8':
-                case 'hw9':
-                case 'hw10':
-                case 'hw11':
-                case 'hw12':
-                case 'hw13':
-                    break;
-                default:
-                    dialog(hwErrMessage);
+            if (hw == 'hw2') {
+                if (code.indexOf('dear_diary = "Popscicles eaten today: "') == -1) return 1;
+                let popsicles = 0;
+                let nugs = 0;
+                let bank = 0;
+                code.split(/\s+/).forEach(item => {
+                    popsicles += (item.indexOf('popsicles') != -1) ? 1 : 0;
+                    nugs += (item.indexOf('chicken_nuggets') != -1) ? 1 : 0;
+                    bank += (item.indexOf('bank_account') != -1) ? 1 : 0;
+                });
+                if (popsicles < 3 || nugs < 3 || bank < 3) return 1;
             }
             break;
         case 'pythonE':
@@ -162,61 +147,47 @@ function grade(code, hw) {
     }
     switch (course) {
         case 'pythonM':
-            switch (hw) {
-                case 'hw2':
-                    fullPoints = hw2_p_m_points;
-                    let case1 = scores => run(code, 'minutes_to_seconds(0)', 0, scores, 9, results);
-                    let case2 = scores => run(code, 'minutes_to_seconds(12)', 720, scores, 9, case1);
-                    let case3 = scores => run(code, 'twenty_twenty()', 2020, scores, 8, case2);
-                    let case4 = scores => variable(code, 'watch_tv', '', 308538.4213121, scores, 5, case3);
-                    let case5 = scores => variable(code, 'work_hard', '', 1525862.8715121, scores, 5, case4);
-                    let case6 = scores => variable(code, 'chicken_eaten', '', -10029587, scores, 4, case5);
-                    let case7 = scores => variable(code, 'eat_more_chicken', '', 105964623, scores, 4, case6);
-                    variable(code, 'dear_diary', '', 'Popscicles eaten today: 1250123590', {}, 3, case7);
-                    break;
-                case 'hw3':
-                case 'hw4':
-                case 'hw5':
-                case 'hw6':
-                case 'hw7':
-                case 'hw8':
-                case 'hw9':
-                case 'hw10':
-                case 'hw11':
-                case 'hw12':
-                case 'hw13':
-                    fullPoints = {};
-                    if (hw == 'hw3') cases = hw3_p_m_cases;
-                    else if (hw == 'hw4') cases = hw4_p_m_cases;
-                    else if (hw == 'hw5') cases = hw5_p_m_cases;
-                    else if (hw == 'hw6') cases = hw6_p_m_cases;
-                    else if (hw == 'hw7') cases = hw7_p_m_cases;
-                    else if (hw == 'hw8') cases = hw8_p_m_cases;
-                    else if (hw == 'hw9') cases = hw9_p_m_cases;
-                    else if (hw == 'hw10') cases = hw10_m_cases;
-                    else if (hw == 'hw11') cases = hw11_m_cases;
-                    else if (hw == 'hw12') cases = hw12_m_cases;
-                    else if (hw == 'hw13') cases = hw13_m_cases;
-                    else dialog(hwErrMessage);
-                    let callback = results;
-                    for (const num in cases) {
-                        fullPoints[num] = 0;
-                        for (const c of cases[num]) {
-                            fullPoints[num]++;
-                            let prev = callback;
-                            callback = scores => {
-                                if (c.length == 2) {
-                                    run(code, c[0], c[1], scores, num, prev);
-                                } else if (c.length == 3) {
-                                    variable(code, 'var', c[1], c[2], scores, num, prev);
-                                }                               
-                            }
+            if (hw == 'hw2') {
+                fullPoints = hw2_p_m_points;
+                let case1 = scores => run(code, 'minutes_to_seconds(0)', 0, scores, 9, results);
+                let case2 = scores => run(code, 'minutes_to_seconds(12)', 720, scores, 9, case1);
+                let case3 = scores => run(code, 'twenty_twenty()', 2020, scores, 8, case2);
+                let case4 = scores => variable(code, 'watch_tv', '', 308538.4213121, scores, 5, case3);
+                let case5 = scores => variable(code, 'work_hard', '', 1525862.8715121, scores, 5, case4);
+                let case6 = scores => variable(code, 'chicken_eaten', '', -10029587, scores, 4, case5);
+                let case7 = scores => variable(code, 'eat_more_chicken', '', 105964623, scores, 4, case6);
+                variable(code, 'dear_diary', '', 'Popscicles eaten today: 1250123590', {}, 3, case7);
+            } else {
+                fullPoints = {};
+                if (hw == 'hw3') cases = hw3_p_m_cases;
+                else if (hw == 'hw4') cases = hw4_p_m_cases;
+                else if (hw == 'hw5') cases = hw5_p_m_cases;
+                else if (hw == 'hw6') cases = hw6_p_m_cases;
+                else if (hw == 'hw7') cases = hw7_p_m_cases;
+                else if (hw == 'hw8') cases = hw8_p_m_cases;
+                else if (hw == 'hw9') cases = hw9_p_m_cases;
+                else if (hw == 'hw10') cases = hw10_m_cases;
+                else if (hw == 'hw11') cases = hw11_m_cases;
+                else if (hw == 'hw12') cases = hw12_m_cases;
+                else if (hw == 'hw13') cases = hw13_m_cases;
+                else if (hw == 'hw14') cases = hw14_m_cases;
+                else dialog(hwErrMessage);
+                let callback = results;
+                for (const num in cases) {
+                    fullPoints[num] = 0;
+                    for (const c of cases[num]) {
+                        fullPoints[num]++;
+                        let prev = callback;
+                        callback = scores => {
+                            if (c.length == 2) {
+                                run(code, c[0], c[1], scores, num, prev);
+                            } else if (c.length == 3) {
+                                variable(code, 'var', c[1], c[2], scores, num, prev);
+                            }                               
                         }
                     }
-                    callback({});
-                    break;
-                default:
-                    dialog(hwErrMessage);
+                }
+                callback({});
             }
             break;
         case 'pythonE':
