@@ -53,6 +53,7 @@ I run a weekly Web Design Club for high schoolers -- if you're interested, let m
         case 'pythonM':
             $('#course').html('Intro to CS - Python (M)');
             $('#assignments').html(`
+                <button onclick="grader('hw16')" class="${hwButtonClass}">Homework 16</button>
                 <button onclick="grader('hw15')" class="${hwButtonClass}">Homework 15</button>
                 <button onclick="grader('hw14')" class="${hwButtonClass}">Homework 14</button>
                 <button onclick="grader('hw13')" class="${hwButtonClass}">Homework 13</button>
@@ -175,6 +176,7 @@ function grade(code, hw) {
                 else if (hw == 'hw13') cases = hw13_m_cases;
                 else if (hw == 'hw14') cases = hw14_m_cases;
                 else if (hw == 'hw15') cases = hw15_m_cases;
+                else if (hw == 'hw16') cases = hw16_m_cases;
                 else dialog(hwErrMessage);
                 let callback = results;
                 for (const num in cases) {
@@ -233,6 +235,7 @@ function grade(code, hw) {
 }
 
 function run(code, call, expected, scores, num, callback) {
+    // console.log(call);
     pypyjs.exec(
         code + `result = ${call}`
     ).then(function () {
@@ -256,6 +259,7 @@ function run(code, call, expected, scores, num, callback) {
 }
 
 function variable(code, variable, call, expected, scores, num, callback) {
+    // console.log(call);
     pypyjs.exec(
         code + call
     ).then(function () {
