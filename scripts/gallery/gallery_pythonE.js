@@ -1,5 +1,11 @@
 let pythonEGallery = [
     {
+        img: 'gallery/pythonE/4.png',
+        title: "A Very Rutted Cupcake",
+        name: 'Anna',
+        caption: "Well, you can say this is a piece of cake! I don't know if this will even come out sweet or sour!!!! Even though this kinda looks a little bit weird, it took me quite some time. This happens to your cupcake if you don't do more turtle graphics. No offense to people who love cupcakes, and don't do turtle graphics. . ."
+    },
+    {
         img: 'gallery/pythonE/3.png',
         title: "Zooming in on a zebra's body",
         name: 'Michael',
