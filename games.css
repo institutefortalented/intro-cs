@@ -1,0 +1,78 @@
+#gallery {
+    width: 80%; 
+    margin-left: 10%; 
+    margin-right: 10%;
+    margin-top: 50px;
+}
+
+#gallery td {
+    padding: 50px 30px 25px 30px;
+    text-align: center;
+}
+
+.entry {
+    width: 24vw;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+#gallery .entry-title:hover {
+    color: #527FEA;
+    cursor: pointer;
+}
+
+#game {
+    margin: auto;
+    margin-top: 150px;
+    font-family: "Roboto";
+    font-weight: 300;
+    text-align: center;
+}
+
+.entry-title {
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: 400;
+}
+.entry-name {
+    margin-top: 15px;
+}
+.entry-caption {
+    margin-top: 15px;
+}
+
+#game .back {
+    margin-right: 75vw;
+    margin-left: 32px;
+    font-family: "Roboto";
+    font-weight: 300;
+    font-size: 16px;
+}
+#game .back:hover {
+    cursor: pointer;
+}
+#game button {
+    margin-bottom: 3px;
+}
+#game .entry-title {
+    margin-top: 0px;
+}
+#game .entry-caption {
+    margin: auto;
+    margin-top: 15px;
+    width: 40vw;
+}
+.entry-instructions {
+    margin: auto;
+    margin-top: 50px;
+    width: 40vw;
+}
+.entry-start {
+    margin: auto;
+    margin-top: 25px;
+}
+iframe {
+    margin-left: 12vw;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
